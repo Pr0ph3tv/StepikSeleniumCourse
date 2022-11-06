@@ -26,6 +26,14 @@ class ProductPage(BasePage):
         assert self.is_element_present(*ProductPageLocators.ADD_TO_BASKET_NOTIFICATION),\
             "Notification that product was added to the basket is not presented."
 
+    def should_not_be_notification_that_product_is_added_to_basket(self):
+        assert self.is_not_element_present(*ProductPageLocators.ADD_TO_BASKET_NOTIFICATION),\
+            "Notification that product was added to the basket is presented but should not be."
+
+    def notification_that_product_is_added_to_basket_should_disappear(self):
+        assert self.is_disappeared(*ProductPageLocators.ADD_TO_BASKET_NOTIFICATION),\
+            "Notification that product was added to the basket is presented but should disappear."
+
     def should_be_notification_with_total_basket_cost(self):
         assert self.is_element_present(*ProductPageLocators.BASKET_COST_NOTIFICATION),\
             "Notification with total basket cost is not presented."
