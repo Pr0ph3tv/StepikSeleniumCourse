@@ -5,6 +5,35 @@ from .pages.login_page import LoginPage
 from .pages.basket_page import BasketPage
 
 
+@pytest.mark.user_add_to_basket_tests
+class TestUserAddToBasketFromProductPage:
+    @pytest.fixture(scope="function", autouse=True)
+    def setup(self, browser):
+        link = "http://selenium1py.pythonanywhere.com/ru/accounts/login/"
+        login_page = LoginPage(browser, link)
+        login_page.open()
+        login_page.register_new_user()
+        login_page.should_be_authorized_user()
+
+    def test_user_cant_see_success_message(self, browser):
+        link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
+        page = ProductPage(browser, link)
+        page.open()
+        page.should_be_product_page()
+        page.should_not_be_notification_that_product_is_added_to_basket()
+
+    def test_user_can_add_product_to_basket(self, browser):
+        link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/hackers-delight_198/"
+        page = ProductPage(browser, link)
+        page.open()
+        page.should_be_product_page()
+        page.add_product_to_basket()
+        page.should_be_notification_that_product_is_added_to_basket()
+        page.is_product_name_in_notification_equal_to_description()
+        page.should_be_notification_with_total_basket_cost()
+        page.is_product_price_equal_to_basket_cost()
+
+
 @pytest.mark.parametrize('offer_number', [pytest.param(number, marks=pytest.mark.xfail(number == 7, reason=''))
                                           for number in range(10)])
 def test_guest_can_add_product_to_basket(browser, offer_number):
