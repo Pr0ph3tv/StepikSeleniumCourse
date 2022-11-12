@@ -28,7 +28,6 @@ class BasketPage(BasePage):
 
     def should_be_basket_site_path_presented(self):
         basket_site_path = self.browser.find_element(*BasePageLocators.PAGE_SITE_PATH).text
-        print(f"basket_site_path={basket_site_path}, Header= {BasketPageConstants.BASKET_PAGE_HEADER}")
         assert BasketPageConstants.BASKET_PAGE_HEADER == basket_site_path, "Basket site path is incorrect."
 
     def should_be_basket_header_presented(self):
@@ -46,7 +45,6 @@ class BasketPage(BasePage):
             return this.nodeType == Node.TEXT_NODE;
         }).text();
         """, basket_empty_message)
-        print(f"result = {message_text}, Basket_message {BasketPageConstants.BASKET_PAGE_EMPTY_MESSAGE}")
         assert BasketPageConstants.BASKET_PAGE_EMPTY_MESSAGE in message_text,\
             "Message that the basket is empty is not correct."
 
