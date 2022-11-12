@@ -44,8 +44,21 @@ class BasePage:
         link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
         link.click()
 
+    def go_to_basket_page(self):
+        basket_button = self.browser.find_element(*BasePageLocators.VIEW_BASKET_BUTTON)
+        basket_button.click()
+
     def should_be_login_link(self):
-        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
+        assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented."
+
+    def should_be_page_site_path_presented(self):
+        assert self.is_element_present(*BasePageLocators.PAGE_SITE_PATH), "Page site path is not presented."
+
+    def should_be_page_header_presented(self):
+        assert self.is_element_present(*BasePageLocators.PAGE_HEADER), "Page header is not presented."
+
+    def should_be_view_basket_button_presented(self):
+        assert self.is_element_present(*BasePageLocators.VIEW_BASKET_BUTTON), "'View basket' button is not presented."
 
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
